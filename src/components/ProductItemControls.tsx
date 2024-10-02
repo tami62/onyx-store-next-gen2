@@ -30,7 +30,18 @@ const ProductItemControls = ({
   };
 
   const handleDelete = async () => {
-    /* 
+    try{
+      const result = await client.models.Product.delete(
+        { id },
+        { authMode: "userPool" }
+        
+      );
+      console.log("deleted product", result);
+      clearCachesByServerAction();
+    } catch (error)
+     { console.error("error deleting product", error)
+
+        }    /* 
       How can we implement a custom mutation in AWS Amplify delete (hard or soft) a product and its associated images in one go? The documentation is essentially here: https://docs.amplify.aws/react/build-a-backend/data/connect-to-existing-data-sources/connect-external-ddb-table/.
 
       We could also have an event trigger that listens for a product deletion/archiving and deletes/archives the associated images using a Lambda function.
